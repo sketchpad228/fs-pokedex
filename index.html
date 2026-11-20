@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="">
+	<title>Service status</title>
+</head>
+<body>
+	<header class="page-header">
+		<p class="eyebrow">Live service directory</p>
+		<h1>Service status</h1>
+		<p class="intro">Search the latest status and incident information for each service.</p>
+	</header>
+
+	<main>
+		<form action="" class="form-container" role="search">
+			<label for="service-search">Search services</label>
+			<div class="search-control">
+				<input id="service-search" name="search" type="search" placeholder="Search by service or incident" autocomplete="off">
+				<button type="reset">Clear</button>
+				<button type="submit">Search</button>
+			</div>
+			<p id="result-count" class="result-count" aria-live="polite">Loading services…</p>
+		</form>
+
+		<section aria-labelledby="services-heading">
+			<h2 id="services-heading" class="visually-hidden">Available services</h2>
+			<div id="status-message" class="status-message" role="status" aria-live="polite">Loading services…</div>
+			<div id="service-list" class="card-grid">
+				// where the articles are displayed
+			</div>
+			<p id="empty-results" class="status-message" hidden>No services match your search.</p>
+		</section>
+
+		
+	</main>
+	<script src="app.js"></script>
+</body>
+</html>
