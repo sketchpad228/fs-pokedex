@@ -24,6 +24,13 @@ main {
 	padding-block: 3rem 1.5rem;
 }
 
+.pokemon-image{
+	display: block;
+	width: 200px;
+	height: 200px;
+	border: 10px solid #a9b8ca;
+}
+
 .eyebrow {
 	margin: 0 0 .5rem;
 	color: #315b93;
@@ -128,9 +135,22 @@ button:focus-visible {
 	flex-direction: column;
 	padding: 1.25rem;
 	background: #fff;
-	border: 1px solid #a9b8ca;
+	border: 10px solid #a9b8ca;
 	border-radius: .75rem;
 	box-shadow: 0 .25rem .75rem rgb(23 37 84 / 7%);
+	align-items: center;
+	justify-content: center;
+}
+
+.card .pokemon-image {
+	display: block;
+	width: 200px;
+	height: 200px;
+	margin-bottom: 1rem;
+	border-radius: .5rem;
+	object-fit: cover;
+	align-items: center;
+	justify-content: center;
 }
 
 .card[hidden] {

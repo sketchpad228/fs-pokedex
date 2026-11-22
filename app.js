@@ -143,7 +143,7 @@ let searchPokemon = (searchInput) => {
 	getPokemon(searchInput)
 }
 
-const render = data => {
+const renderPokemon = data => {
 	serviceList.replaceChildren()
 	console.log(data)
 
@@ -153,6 +153,27 @@ const render = data => {
 			// .concat(service.recentIncidentBriefs?.map(issue => `${issue.impact} ${issue.name}`) || [])
 			.join(" ").toLowerCase()
 
+	const image = document.createElement("img")
+	image.className = "pokemon-image"
+	image.src = data.sprites?.other?.["official-artwork"]?.versions?.["generation-i"]?.["red-and-blue"]?.front_default || "https://via.placeholder.com/150"
+	image.alt = data.name || "Pokemon image unavailable"
+	image.setAttribute("aria-label", data.name || "Pokemon image unavailable")
+
+	// Cropping image
+
+	// var context = image.getContext("2d")
+	// var imageObj = new Image();
+
+	// imageObj.onload = function() {
+
+	// 	var sourceX = 100;
+	// 	var sourceY = 100;
+	// 	var sourceWidth = 800;
+	// 	var sourceHeight = 800;
+	// 	context.drawImage(imageObj, 0, 0);
+	// }
+
+	// Changing size of image
 
 	const name = document.createElement("h3")
 	name.textContent = data.name || "Unnamed service"
@@ -162,6 +183,9 @@ const render = data => {
 
 	const height = document.createElement("p")
 	height.textContent = `Height: ${data.height || "Height unavailable"}`
+
+	const weight = document.createElement("p")
+	weight.textContent = `Weight: ${data.weight || "Weight unavailable"}`
 
 	const description = document.createElement("p")
 	description.className = "card-description"
@@ -173,7 +197,7 @@ const render = data => {
 	const types = document.createElement("p")
 	types.textContent = data.types || "Unnamed service"
 
-	card.append(name, id, height, stats, types)
+	card.append(name, image, id, height, stats, types)
 
 	const abilities = Array.isArray(data.abilities) ? data.abilities : []
 	if (abilities.length) {
@@ -207,7 +231,7 @@ const getPokemon = async (searchInput) => {
 		const data = await response.json()
 		console.log("What the hell is going on here?")
 		console.log(data)
-		render(data)
+		renderPokemon(data)
 	} 
 	catch (error) {
 		console.error(error)
