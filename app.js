@@ -178,15 +178,32 @@ const renderPokemon = data => {
 	image.alt = data.name || "Pokemon image unavailable"
 	image.setAttribute("aria-label", data.name || "Pokemon image unavailable")
 
+	const statsBar = document.createElement("div")
+	statsBar.className = "stats-bar"
+	
 	const id = document.createElement("p")
 	id.className = "card-id"
-	id.textContent = "Pokedex ID: " + (data.id || "ID unavailable")
+	id.textContent = "No. " + (data.id || "ID unavailable")
+
+	// Displaying Pokemon Height and Weight
 
 	const height = document.createElement("p")
 	height.textContent = `Height: ${data.height || "Height unavailable"}`
 
+	const heightSection = document.createElement("section")
+	heightSection.className = "height"
+	heightSection.setAttribute("aria-label", "Height")
+
+	heightSection.append(height)
+
 	const weight = document.createElement("p")
 	weight.textContent = `Weight: ${data.weight || "Weight unavailable"}`
+
+	const weightSection = document.createElement("section")
+	weightSection.className = "weight"
+	weightSection.setAttribute("aria-label", "Weight")
+
+	//
 
 	const description = document.createElement("p")
 	description.className = "card-description"
@@ -195,32 +212,57 @@ const renderPokemon = data => {
 	const stats = document.createElement("p")
 	stats.textContent = data.stats || "Stats unavailable"
 
-	const types = document.createElement("p")
-	types.textContent = data.types || "Unnamed service"
+	statsBar.append(id)
 
-	card.append(name, image, height, stats, types, weight, description)
+	const types = Array.isArray(data.types) ? data.types : []
+
+	if (types.length) {
+
+		const typesSection = document.createElement("section")
+		typesSection.className = "types"
+		typesSection.setAttribute("aria-label", "Types")
+
+		const typeHeading = document.createElement("h4")
+		typeHeading.className = "types-heading"
+		typeHeading.textContent = "Types"
+
+		const typeList = document.createElement("ul")
+
+		types.forEach(d => {
+			const type = document.createElement("li")
+			type.textContent = `${d.type.name|| "Unknown type"}`
+			typeList.append(type)
+		})
+
+		typesSection.append(typeHeading, typeList)
+		statsBar.append(typesSection)
+	}
+
+	statsBar.append(heightSection, weight)
+
+	card.append(name, image, statsBar, stats, description)
 
 	const abilities = Array.isArray(data.abilities) ? data.abilities : []
 
 	if (abilities.length) {
 
 		const incidentSection = document.createElement("section")
-		incidentSection.className = "incidents"
+		incidentSection.className = "stats-bar"
 		incidentSection.setAttribute("aria-label", "Abilities")
 
-		const incidentHeading = document.createElement("h4")
-		incidentHeading.className = "incidents-heading"
-		incidentHeading.textContent = "Abilities"
+		const abilityHeading = document.createElement("h4")
+		abilityHeading.className = "abilities-heading"
+		abilityHeading.textContent = "Abilities"
 
 		const abilityList = document.createElement("ul")
 
-		abilities.forEach(issue => {
+		abilities.forEach(d => {
 			const ability = document.createElement("li")
-			ability.textContent = `${issue.ability.name|| "Unknown impact"}`
+			ability.textContent = `${d.ability.name|| "Unknown impact"}`
 			abilityList.append(ability)
 		})
 
-		incidentSection.append(incidentHeading, abilityList)
+		incidentSection.append(abilityHeading, abilityList)
 		card.append(incidentSection)
 	}
 
@@ -228,7 +270,7 @@ const renderPokemon = data => {
 	
 	setStatus(data.length ? "" : "No services are currently available.", !data.length)
 
-	card.append(id)
+	// card.append(id)
 
 	updateResults()
 }
