@@ -150,14 +150,8 @@ const renderPokemon = data => {
 	const card = document.createElement("article")
 	card.className = "card"
 	card.dataset.searchText = [data.id, data.name]
-			// .concat(service.recentIncidentBriefs?.map(issue => `${issue.impact} ${issue.name}`) || [])
+			.concat(data.abilities?.map(ability => `${ability.impact} ${ability.name}`) || [])
 			.join(" ").toLowerCase()
-
-	const image = document.createElement("img")
-	image.className = "pokemon-image"
-	image.src = data.sprites?.other?.["official-artwork"]?.versions?.["generation-i"]?.["red-and-blue"]?.front_default || "https://via.placeholder.com/150"
-	image.alt = data.name || "Pokemon image unavailable"
-	image.setAttribute("aria-label", data.name || "Pokemon image unavailable")
 
 	// Cropping image
 
@@ -178,7 +172,14 @@ const renderPokemon = data => {
 	const name = document.createElement("h3")
 	name.textContent = data.name || "Unnamed service"
 
+	const image = document.createElement("img")
+	image.className = "pokemon-image"
+	image.src = data.sprites?.other?.["official-artwork"]?.versions?.["generation-i"]?.["red-and-blue"]?.front_default || "https://via.placeholder.com/150"
+	image.alt = data.name || "Pokemon image unavailable"
+	image.setAttribute("aria-label", data.name || "Pokemon image unavailable")
+
 	const id = document.createElement("p")
+	id.className = "card-id"
 	id.textContent = "Pokedex ID: " + (data.id || "ID unavailable")
 
 	const height = document.createElement("p")
@@ -197,29 +198,38 @@ const renderPokemon = data => {
 	const types = document.createElement("p")
 	types.textContent = data.types || "Unnamed service"
 
-	card.append(name, image, id, height, stats, types)
+	card.append(name, image, height, stats, types, weight, description)
 
 	const abilities = Array.isArray(data.abilities) ? data.abilities : []
+
 	if (abilities.length) {
+
 		const incidentSection = document.createElement("section")
 		incidentSection.className = "incidents"
 		incidentSection.setAttribute("aria-label", "Abilities")
+
 		const incidentHeading = document.createElement("h4")
 		incidentHeading.className = "incidents-heading"
 		incidentHeading.textContent = "Abilities"
-		const incidentList = document.createElement("ul")
+
+		const abilityList = document.createElement("ul")
+
 		abilities.forEach(issue => {
-			const item = document.createElement("li")
-			item.textContent = `${abilities[issue] || "Unknown impact"}`
-			incidentList.append(item)
+			const ability = document.createElement("li")
+			ability.textContent = `${issue.ability.name|| "Unknown impact"}`
+			abilityList.append(ability)
 		})
-		incidentSection.append(incidentHeading, incidentList)
+
+		incidentSection.append(incidentHeading, abilityList)
 		card.append(incidentSection)
 	}
 
 	serviceList.append(card)
 	
 	setStatus(data.length ? "" : "No services are currently available.", !data.length)
+
+	card.append(id)
+
 	updateResults()
 }
 
