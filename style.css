@@ -197,7 +197,7 @@ button:focus-visible {
 }
 
 .stats-bar {
-	/* padding: .0rem 1rem .0rem 1rem; */
+	width: 500px;
 	padding-left: 1rem;
 	padding-right: 1rem;
 	display: flex;
@@ -212,12 +212,31 @@ button:focus-visible {
 	padding-right: .8rem;
 }
 
+.types {
+	padding-right: .8rem;
+	display: flex;
+	flex-direction: row;
+}
+
+#type-list p {
+	text-transform: none;
+}
+
+.type-name {
+	text-transform: capitalize;
+	display: inline-block;
+}
+
+/* p::first-letter {
+	text-transform: capitalize;
+} */
+
 .height {
 	padding-right: .8rem;
 }
 
 .weight {
-	padding: .85rem 1rem .85rem 2rem;
+	padding-right: .8rem;
 }
 
 .incidents-heading {
