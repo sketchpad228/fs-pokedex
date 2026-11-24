@@ -1,61 +1,3 @@
-/* 
-	? Application Programming Interface (API)
-	* a way for us to communicate with a resource (usually a server)
-	* client (front-end)
-		* browsers, curl command, Postman request
-	* server (back-end)
-		* a computer has a listener setup that listens for requests
-		* it serves up response
-	* enables a RESTful architecture using request/response lifecycle
-		* REST - representational state transfer
-			* communicate in req/res
-			* JSON (JavaScript Object Notation) specific
-			* stateless
-		* SOAP - simple object access protocol
-			* communicate in req/res
-			* XML specific
-			* stateful
-		* request - data we send (as the client)
-			* headers (metadata)
-			* query parameters (GET)
-			* body (POST)
-		* response - data we receive (as the server)
-			* headers
-			* payload
-			* status code
-	
-	* REST & SOAP work via CRUD
-		* create
-		* read
-		* update
-		* delete
-	
-	* correspond to the following HTTP Methods or HTTP Verbs
-		* POST
-		* GET
-		* PUT
-		* DELETE
-*/
-
-/* 
-	? Fetch API
-	* asynchronous function
-	* we need it because we don't know how long fetching data will take
-	* we wait until our Promise is resolved or rejected
-	* fetch allows us to handel the data in three states
-		* pending (not done)
-		* fulfilled (done)
-		* rejected (error) - due to network problems or time-to-live (TTL)
-	
-	* JSON JavaScript Object Notation
-		* it is an object
-		* wrapped in a string
-		* specific syntax for stringfying and JSONifying
-		* ex: "{ 'name': 'Paul', 'age': 27}"
-		* to aid in transmission, data gets encapsulated into ReadableStream object
-		* it needs JSONified
-*/
-
 // let url = `https://prismix.dev/api/v1/statuses`;
 // let url = `https://pokeapi.co/api/v2/pokemon/`
 // let url = `https://pokeapi.co/api/v2/pokemon/pikachu`
@@ -94,16 +36,6 @@ const setStatus = (message, visible = true) => {
 	statusMessage.textContent = message
 	statusMessage.hidden = !visible
 }
-
-
-
-// const formatDate = value => {
-// 	if (!value) return "Date unavailable"
-// 	const date = new Date(value)
-// 	return Number.isNaN(date.getTime())
-// 		? String(value)
-// 		: date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })
-// }
 
 const updateResults = () => {
 	const term = search.value.trim().toLowerCase()
