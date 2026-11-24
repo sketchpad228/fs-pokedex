@@ -172,6 +172,9 @@ const renderPokemon = data => {
 	const name = document.createElement("h3")
 	name.textContent = data.name || "Unnamed service"
 
+	// Attempt to capitalise first letter
+	// name.textContent = String(data.name).charAt(0).toUpperCase + String(data.name).slice(1) || "Unnamed service"
+
 	const image = document.createElement("img")
 	image.className = "pokemon-image"
 	image.src = data.sprites?.other?.["official-artwork"]?.versions?.["generation-i"]?.["red-and-blue"]?.front_default || "https://via.placeholder.com/150"
@@ -226,10 +229,10 @@ const renderPokemon = data => {
 		typeHeading.className = "types-heading"
 		typeHeading.textContent = "Types"
 
-		const typeList = document.createElement("ul")
+		const typeList = document.createElement("p")
 
 		types.forEach(d => {
-			const type = document.createElement("li")
+			const type = document.createElement("p")
 			type.textContent = `${d.type.name|| "Unknown type"}`
 			typeList.append(type)
 		})
