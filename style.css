@@ -47,6 +47,14 @@ h1 {
 	line-height: 1.1;
 }
 
+h3::first-letter {
+	text-transform: capitalize;
+}
+
+li::first-letter {
+	text-transform: capitalize;
+}
+
 .intro {
 	max-width: 42rem;
 	margin-bottom: 0;
