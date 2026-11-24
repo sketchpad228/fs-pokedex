@@ -101,11 +101,16 @@ const renderPokemon = data => {
 
 	// Changing size of image
 
-	const name = document.createElement("h3")
-	name.textContent = data.name || "Unnamed service"
+	const heading = document.createElement("div")
 
-	// Attempt to capitalise first letter
+	const name = document.createElement("h3")
+	name.textContent = data.name || "Unnamed Pokemon"
+
+	// Attempt to capitalise first letter - done in CSS instead
 	// name.textContent = String(data.name).charAt(0).toUpperCase + String(data.name).slice(1) || "Unnamed service"
+
+	const baseExperience = document.createElement("h4")
+	baseExperience.textContent = data.base_experience || "Unknown Base Experience"
 
 	const image = document.createElement("img")
 	image.className = "pokemon-image"
@@ -196,8 +201,8 @@ const renderPokemon = data => {
 	statsBar.append(heightSection, weightSection)
 
 	//
-
-	card.append(name, image, statsBar, stats, description)
+	heading.append(name, baseExperience)
+	card.append(heading, image, statsBar, stats, description)
 
 	const abilities = Array.isArray(data.abilities) ? data.abilities : []
 
