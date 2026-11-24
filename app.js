@@ -120,6 +120,59 @@ const renderPokemon = data => {
 	id.className = "card-id"
 	id.textContent = "No. " + (data.id || "ID unavailable")
 
+	const description = document.createElement("p")
+	description.className = "card-description"
+	// description.textContent = service.description || "No description available."
+
+	const stats = document.createElement("p")
+	stats.textContent = data.stats || "Stats unavailable"
+
+	statsBar.append(id)
+
+	const types = Array.isArray(data.types) ? data.types : []
+
+	if (types.length) {
+
+		const typesSection = document.createElement("section")
+		typesSection.className = "types"
+		typesSection.setAttribute("aria-label", "Types")
+
+		const typeList = document.createElement("p")
+
+		const pokemonString = document.createElement("string")
+		pokemonString.textContent = "Pokemon"
+
+		types.forEach((d, index) => {
+
+			// const type = document.createElement("p")
+			// type.className = "type"
+			// const typeName = d.type.name || "Unknown type"
+			
+			// type.textContent = index > 0 ? `and ${typeName}` : typeName
+
+			const type = document.createElement("string")
+			const typeSpan = document.createElement("span")
+			
+			typeSpan.className = "type-name"
+			typeSpan.textContent = d.type.name || "Unknown type"
+
+			// I hope there isn't more than two types, otherwise it'll say 'and' at the end of every additional type!
+
+			if (index > 0) {
+				type.append(" and ", typeSpan, " ");
+			} else {
+				type.append(typeSpan, " ")
+			}
+
+			typeList.append(type)
+			typeList.append(pokemonString)
+		})
+		
+		typesSection.append(typeList)
+		// typesSection.append(pokemon)
+		statsBar.append(typesSection)
+	}
+
 	// Displaying Pokemon Height and Weight
 
 	const height = document.createElement("p")
@@ -138,42 +191,11 @@ const renderPokemon = data => {
 	weightSection.className = "weight"
 	weightSection.setAttribute("aria-label", "Weight")
 
+	weightSection.append(weight)
+
+	statsBar.append(heightSection, weightSection)
+
 	//
-
-	const description = document.createElement("p")
-	description.className = "card-description"
-	// description.textContent = service.description || "No description available."
-
-	const stats = document.createElement("p")
-	stats.textContent = data.stats || "Stats unavailable"
-
-	statsBar.append(id)
-
-	const types = Array.isArray(data.types) ? data.types : []
-
-	if (types.length) {
-
-		const typesSection = document.createElement("section")
-		typesSection.className = "types"
-		typesSection.setAttribute("aria-label", "Types")
-
-		const typeHeading = document.createElement("h4")
-		typeHeading.className = "types-heading"
-		typeHeading.textContent = "Types"
-
-		const typeList = document.createElement("p")
-
-		types.forEach(d => {
-			const type = document.createElement("p")
-			type.textContent = `${d.type.name|| "Unknown type"}`
-			typeList.append(type)
-		})
-
-		typesSection.append(typeHeading, typeList)
-		statsBar.append(typesSection)
-	}
-
-	statsBar.append(heightSection, weight)
 
 	card.append(name, image, statsBar, stats, description)
 
